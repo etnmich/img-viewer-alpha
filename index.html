@@ -1,0 +1,81 @@
+<!-- Changing stuff here might break things. -->
+<html>
+    <head>
+        <title>Image Viewer template</title>
+        <style>
+            body {
+                background-color: black;
+            }
+            img {
+                max-height:100vh;
+                max-width:100vw;
+                margin: auto;
+                position: absolute;
+                top: 0; left: 0; bottom: 0; right: 0;
+            }
+        </style>
+        <script type="text/javascript">/*
+            var wsUri = 'ws://%s:%s'; // to be changed
+            var output, source;
+
+            function init() {
+                output = document.getElementById('output');
+                testWebSocket();
+            }
+
+            function testWebSocket() {
+                if (! ("WebSocket" in window)) WebSocket = MozWebSocket; // firefox fix
+                websocket = new WebSocket(wsUri);
+                websocket.onopen = function(evt) { openHandler(evt); };
+                websocket.onclose = function(evt) {
+                    document.getElementsByTagName('body')[0].innerHTML = '<p>(Connection broken, please refresh page)</p>';
+                };
+                websocket.onerror = function(evt) {
+                    var msg;
+                    if (evt.data == undefined) {
+                        msg = 'Cannot connect to socket at ' + wsUri;
+                    } else {
+                        msg = 'Error in socket!\\n' + evt.data
+                        alert(msg)
+                    }
+                };
+                websocket.onmessage = function(evt) { messageHandler(evt) };
+            }
+
+            function sendUri(uri_evt) {
+                websocket.send(uri_evt)
+            }
+
+            function messageHandler(evt) {
+                //fuck it, I'm doing this my way.
+                var msg = evt.data
+                if (msg == '§begin') { source = ''; }
+                else if (msg == '§end') { output.src = source; }
+                else { source += msg; }
+            }*/
+        </script>
+    </head>
+    <body>
+        <img id='output' src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' />
+    </body>
+</html>
+
+
+
+
+
+
+
+
+<html>
+    <head>
+        <title>Image Viewer template</title>
+        <style>
+            body {background-color: black; }
+            img {max-height:100vh; max-width:100vw; margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
+        </style>
+    </head>
+    <body>
+        <img id='output' src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' />
+    </body>
+</html>
