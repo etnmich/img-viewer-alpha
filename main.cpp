@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     //MainWindow w;
     ViewerWindow w;
     //Win1 e(&w);
-    //w.show();
+    w.show();
     // this is sort of not good, but whatever.
     MainWindow *mainWin = w.getMainWindow();
     mainWin->show();

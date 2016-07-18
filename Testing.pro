@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkitwidgets
+QT       += core gui webkitwidgets webkit
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     form.cpp \
     websocketserver.cpp \
     webpagebuilder.cpp \
-    viewerwindow.cpp
+    viewerwindow.cpp \
+    config.cpp
 
 HEADERS  += mainwindow.h \
     form.h \
     websocketserver.h \
     webpagebuilder.h \
-    viewerwindow.h
+    viewerwindow.h \
+    config.h
 
 FORMS    += mainwindow.ui \
     form.ui \
@@ -31,3 +33,5 @@ FORMS    += mainwindow.ui \
 
 DISTFILES += \
     index.html
+
+CONFIG += c++11
