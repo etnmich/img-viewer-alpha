@@ -4,9 +4,11 @@
 #include <QMainWindow>
 #include <QDateTime>
 #include <QUrl>
+#include <QVector>
 
 #include "viewerwindow.h"
 #include "webpagebuilder.h"
+#include "config.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,10 +45,19 @@ private slots:
 
     void wpSizeChanged();
 
+    void saveSettings();
 private:
     Ui::MainWindow *ui;
     ViewerWindow *viewer;
     WebPageBuilder *wpb;
+    Config *conf;
+    void loadSettings();
+
+    const QVector<QString> Fields = {
+        "bgColor",
+        "wpHeight",
+        "wpWidth"
+    };
 };
 
 #endif // MAINWINDOW_H

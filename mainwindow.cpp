@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent, ViewerWindow *view) :
 
     wpb = new WebPageBuilder(this);
     setAcceptDrops(true);
+
+    conf = new Config("settings.conf", this);
+    // do something if error.
+    loadSettings();
     //updateImage();
 
     //viewer->show();
@@ -80,6 +84,7 @@ void MainWindow::show()
     QObject::connect(ui->updateButton, SIGNAL(clicked(bool)), this, SLOT(updateImage()));
     QObject::connect(ui->wpHeight, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
     QObject::connect(ui->wpWidth, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
+    QObject::connect(ui->saveButton, SIGNAL(clicked(bool)), this, SLOT(saveSettings()));
 
     QObject::connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogLabel, SLOT(setVisible(bool)));
     QObject::connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogBrowser, SLOT(setVisible(bool)));
@@ -137,3 +142,29 @@ void MainWindow::setSizes()
     ui->wpHeight->setValue(viewer->height());
     ui->wpWidth->setValue(viewer->width());
 }
+
+void MainWindow::loadSettings()
+{
+    // do something about this.
+    try {
+        QString col = conf->getKey("bgColor");
+        ui->bgColor->setValue(col.toInt());
+    } catch (...) {}
+    try {
+        QString h = conf->getKey("wpHeight");
+        ui->wpHeight->setValue(h.toInt());
+    } catch (...) {}
+    try {
+        QString w = conf->getKey("wpWidth");
+        ui->wpWidth->setValue(w.toInt());
+    } catch (...) {}
+}
+
+void MainWindow::saveSettings()
+{
+    conf->setKey("bgColor", QString::number(ui->bgColor->value()));
+    conf->setKey("wpHeight", QString::number(ui->wpHeight->value()));
+    conf->setKey("wpWidth", QString::number(ui->wpWidth->value()));
+    conf->save();
+}
+

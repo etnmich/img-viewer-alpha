@@ -11,16 +11,22 @@ class Config : public QObject
 public:
     explicit Config(const QString &filename, QObject *parent = 0);
     enum class Error {
-        RWaccessError
+        RWaccessError,
+        KeyNotFound,
+        SaveError
     };
 
+    QString getKey(const QString &key) const;
+    void setKey(const QString &key, const QString &value);
 signals:
 
 public slots:
 
+    void save();
 private:
     QFile *file;
     QMap<QString,QString> data;
+    QByteArray makeConfigFile() const;
 };
 
 #endif // CONFIG_H

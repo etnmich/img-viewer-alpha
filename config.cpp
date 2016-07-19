@@ -17,6 +17,38 @@ Config::Config(const QString &filename, QObject *parent) : QObject(parent)
         data.insert(splitData[0], splitData[1]);
     }
 }
+
+QString Config::getKey(const QString &key) const
+{
+    if (!data.contains(key)) {
+        throw Error::KeyNotFound;
+    } else {
+        return data[key];
+    }
+}
+
+void Config::setKey(const QString &key, const QString &value)
+{
+    // 2ez.
+    data[key] = value;
+}
+
+void Config::save()
+{
+    file->reset();
+    file->write(makeConfigFile());
+    file->resize(file->pos());
+}
+
+QByteArray Config::makeConfigFile() const
+{
+    QByteArray conf;
+    for (QMap<QString,QString>::const_iterator i = data.begin(); i != data.end(); i++) {
+        conf.append(QString("%1:%2\n").arg(i.key(), i.value()));
+    }
+    return conf;
+}
+
 /*
 So... sleepy.
 Just list some TODO here.
