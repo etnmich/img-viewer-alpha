@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QFile>
 #include <QMap>
+#include <QVariant>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 class Config : public QObject
 {
@@ -12,12 +15,13 @@ public:
     explicit Config(const QString &filename, QObject *parent = 0);
     enum class Error {
         RWaccessError,
+        ParseError,
         KeyNotFound,
         SaveError
     };
 
-    QString getKey(const QString &key) const;
-    void setKey(const QString &key, const QString &value);
+    QVariant getKey(const QString &key) const;
+    void setKey(const QString &key, const QVariant &value);
 signals:
 
 public slots:
@@ -25,7 +29,7 @@ public slots:
     void save();
 private:
     QFile *file;
-    QMap<QString,QString> data;
+    QVariantMap data;
     QByteArray makeConfigFile() const;
 };
 

@@ -146,24 +146,21 @@ void MainWindow::loadSettings()
 {
     // do something about this.
     try {
-        QString col = conf->getKey("bgColor");
-        ui->bgColor->setValue(col.toInt());
+        ui->bgColor->setValue(conf->getKey("bgColor").toInt());
     } catch (...) {}
     try {
-        QString h = conf->getKey("wpHeight");
-        ui->wpHeight->setValue(h.toInt());
+        ui->wpHeight->setValue(conf->getKey("wpHeight").toInt());
     } catch (...) {}
     try {
-        QString w = conf->getKey("wpWidth");
-        ui->wpWidth->setValue(w.toInt());
+        ui->wpWidth->setValue(conf->getKey("wpWidth").toInt());
     } catch (...) {}
 }
 
 void MainWindow::saveSettings()
 {
-    conf->setKey("bgColor", QString::number(ui->bgColor->value()));
-    conf->setKey("wpHeight", QString::number(ui->wpHeight->value()));
-    conf->setKey("wpWidth", QString::number(ui->wpWidth->value()));
+    conf->setKey("bgColor", QVariant(ui->bgColor->value()));
+    conf->setKey("wpHeight", QVariant(ui->wpHeight->value()));
+    conf->setKey("wpWidth", QVariant(ui->wpWidth->value()));
     conf->save();
 }
 

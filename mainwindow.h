@@ -52,12 +52,6 @@ private:
     WebPageBuilder *wpb;
     Config *conf;
     void loadSettings();
-
-    const QVector<QString> Fields = {
-        "bgColor",
-        "wpHeight",
-        "wpWidth"
-    };
 };
 
 #endif // MAINWINDOW_H
