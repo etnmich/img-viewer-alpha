@@ -79,15 +79,13 @@ void MainWindow::show()
     setSizes();
     updateImage();
 
-    //QObject::connect(ui->turnLeftButton, SIGNAL(clicked(bool)), wpb, SLOT(rotateCounterCw()));
-    //QObject::connect(ui->turnRightButton, SIGNAL(clicked(bool)), wpb, SLOT(rotateClockwise()));
-    QObject::connect(ui->updateButton, SIGNAL(clicked(bool)), this, SLOT(updateImage()));
-    QObject::connect(ui->wpHeight, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
-    QObject::connect(ui->wpWidth, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
-    QObject::connect(ui->saveButton, SIGNAL(clicked(bool)), this, SLOT(saveSettings()));
+    connect(ui->updateButton, SIGNAL(clicked(bool)), this, SLOT(updateImage()));
+    connect(ui->wpHeight, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
+    connect(ui->wpWidth, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
+    connect(ui->saveButton, SIGNAL(clicked(bool)), this, SLOT(saveSettings()));
 
-    QObject::connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogLabel, SLOT(setVisible(bool)));
-    QObject::connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogBrowser, SLOT(setVisible(bool)));
+    connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogLabel, SLOT(setVisible(bool)));
+    connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogBrowser, SLOT(setVisible(bool)));
     ui->actionShow_Log->toggle();
     resize(400, 100);
 }
@@ -99,6 +97,7 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 
 void MainWindow::dropEvent(QDropEvent * event)
 {
+
     const QMimeData* mimeData = event->mimeData();
 
     LogMessage(mimeData->text());
