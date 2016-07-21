@@ -194,3 +194,8 @@ void MainWindow::showStatus(const QString &msg)
 {
     ui->statusBar->showMessage(msg);
 }
+
+void MainWindow::dropEventBridge(QDropEvent *event)
+{
+    dropEvent(event);
+}

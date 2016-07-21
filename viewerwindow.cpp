@@ -47,3 +47,14 @@ void ViewerWindow::resizeEvent(QResizeEvent * event)
     QMainWindow::resizeEvent(event);
     win->setSizes();
 }
+
+void ViewerWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    event->acceptProposedAction();
+}
+
+void ViewerWindow::dropEvent(QDropEvent *event)
+{
+    qDebug() << event;
+    win->dropEventBridge(event);
+}

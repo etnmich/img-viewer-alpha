@@ -35,6 +35,7 @@ public slots:
     void changeWebSocketButton(const bool &isOnline);
     void showStatus(const QString &msg);
     void changeImage(const QString &url);
+    void dropEventBridge(QDropEvent *event);
 protected:
     virtual void closeEvent(QCloseEvent *);
     void dropEvent(QDropEvent *event);
