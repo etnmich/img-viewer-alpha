@@ -12,21 +12,23 @@ class WebsocketServer : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebsocketServer(qint16 port, QObject *parent = 0);
-
-    enum class Error {
-        ListenFailed
-    };
-
+    explicit WebsocketServer(const QString &name, const bool &useSSL = false, QObject *parent = 0);
     ~WebsocketServer();
+    bool isOnline() const;
+    bool start(const quint16 &port);
+    void stop();
+    QString error();
 signals:
-    void ImageUrlReceived(const QString &url);
+    void ServerOnline(const bool&);
+    void ImageUrlReceived(const QString&);
+    void serverMsg(const QString&);
 
 public slots:
 
 private:
     QWebSocketServer *server;
     QList<QWebSocket*> clients;
+    QString errMsg;
 
 private slots:
     void newConnection();

@@ -9,6 +9,7 @@
 #include "viewerwindow.h"
 #include "webpagebuilder.h"
 #include "config.h"
+#include "websocketserver.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +32,9 @@ public slots:
     void updateImage(bool resetRotation = true);
     void show();
 
+    void changeWebSocketButton(const bool &isOnline);
+    void showStatus(const QString &msg);
+    void changeImage(const QString &url);
 protected:
     virtual void closeEvent(QCloseEvent *);
     void dropEvent(QDropEvent *event);
@@ -46,11 +50,15 @@ private slots:
     void wpSizeChanged();
 
     void saveSettings();
+    void on_wsServerButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ViewerWindow *viewer;
     WebPageBuilder *wpb;
     Config *conf;
+    WebsocketServer *server;
+
     void loadSettings();
 };
 

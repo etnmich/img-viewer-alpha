@@ -1,24 +1,49 @@
 #include "websocketserver.h"
 
-WebsocketServer::WebsocketServer(qint16 port, QObject *parent) : QObject(parent)
+WebsocketServer::WebsocketServer(const QString &name, const bool &secure, QObject *parent) : QObject(parent)
 {
-    server = new QWebSocketServer("Image Receiver", QWebSocketServer::NonSecureMode, this);
-    if (server->listen(QHostAddress::Any, port)) {
-        //do things
-        connect(server, SIGNAL(newConnection()), this, SLOT(newConnection()));
-    } else {
-        throw Error::ListenFailed;
-    }
+    server = new QWebSocketServer(name, secure ? QWebSocketServer::SecureMode : QWebSocketServer::NonSecureMode, this);
 }
 
 WebsocketServer::~WebsocketServer()
 {
-    server->close();
+    stop();
     qDeleteAll(clients);
+}
+
+bool WebsocketServer::isOnline() const
+{
+    return server->isListening();
+}
+
+bool WebsocketServer::start(const quint16 &port)
+{
+    if (server->listen(QHostAddress::Any, port)) {
+        //do things
+        connect(server, SIGNAL(newConnection()), this, SLOT(newConnection()));
+        errMsg = "";
+        emit serverMsg(QString("Server started succesfully on port %1").arg(port));
+        emit ServerOnline(true);
+    } else {
+        errMsg = server->errorString();
+        emit serverMsg(QString("Server error: %1").arg(errMsg));
+    }
+}
+
+void WebsocketServer::stop() {
+    server->close();
+    emit ServerOnline(false);
+    emit serverMsg(QString("Server has shut down"));
+}
+
+QString WebsocketServer::error()
+{
+    return errMsg;
 }
 
 void WebsocketServer::newConnection()
 {
+    qDebug() << "got connection";
     QWebSocket *client = server->nextPendingConnection();
     clients.append(client);
     //connects. TBA

@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent, ViewerWindow *view) :
 
     //viewer->show();
     //setWindowFlags(Qt::WindowStaysOnTopHint);
+    server = new WebsocketServer("Image Receiver", false, this);
 }
 
 MainWindow::~MainWindow()
@@ -88,6 +89,10 @@ void MainWindow::show()
     connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogBrowser, SLOT(setVisible(bool)));
     ui->actionShow_Log->toggle();
     resize(400, 100);
+
+    connect(server, SIGNAL(ServerOnline(bool)), this, SLOT(changeWebSocketButton(bool)));
+    connect(server, SIGNAL(serverMsg(QString)), this, SLOT(showStatus(QString)));
+    connect(server, SIGNAL(ImageUrlReceived(QString)), this, SLOT(changeImage(QString)));
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -113,9 +118,13 @@ void MainWindow::dropEvent(QDropEvent * event)
       // TODO: do something about the rest
       QString firstUrl = urlList.first().toString();
 
-      ui->URLline->setText(firstUrl);
-      updateImage();
+      changeImage(firstUrl);
     }
+}
+
+void MainWindow::changeImage(const QString &url) {
+    ui->URLline->setText(url);
+    updateImage();
 }
 
 void MainWindow::on_turnLeftButton_clicked()
@@ -164,3 +173,24 @@ void MainWindow::saveSettings()
     conf->save();
 }
 
+void MainWindow::changeWebSocketButton(const bool &isOnline)
+{
+    ui->wsServerButton->setText(QString("%1 WebSocket server").arg(isOnline ? "Stop" : "Start"));
+
+}
+
+void MainWindow::on_wsServerButton_clicked()
+{
+    if (server->isOnline()) {
+        server->stop();
+        return;
+    }
+    //ui->statusBar->showMessage("help");
+    server->start(ui->wsPort->value());
+    qDebug() << server->isOnline();
+}
+
+void MainWindow::showStatus(const QString &msg)
+{
+    ui->statusBar->showMessage(msg);
+}

@@ -9,6 +9,8 @@ Config::Config(const QString &filename, QObject *parent) : QObject(parent)
     QJsonDocument doc = QJsonDocument::fromJson(file->read(file->size()));
     if (doc.isObject()) {
         data = doc.object().toVariantMap();
+    } else {
+        throw Error::ParseError;
     }
 }
 
