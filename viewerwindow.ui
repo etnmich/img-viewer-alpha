@@ -30,12 +30,13 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item row="0" column="0">
-     <widget class="QWebView" name="webView" native="true">
-      <property name="url" stdset="0">
-       <url>
-        <string>about:blank</string>
-       </url>
+    <item row="0" column="1">
+     <widget class="QWebEngineView" name="webView" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>100</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -44,9 +45,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QWebView</class>
+   <class>QWebEngineView</class>
    <extends>QWidget</extends>
-   <header>QtWebKitWidgets/QWebView</header>
+   <header>QtWebEngineWidgets/QWebEngineView</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

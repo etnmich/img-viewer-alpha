@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkitwidgets webkit websockets
+#QT       += core gui webkitwidgets webkit websockets
+QT       += core gui webenginewidgets websockets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

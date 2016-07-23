@@ -60,7 +60,7 @@ void WebPageBuilder::setBgColor(const int &color)
     bgColor = "#" + fillStr + colorCode;
 }
 
-QString WebPageBuilder::buildPage() const
+QByteArray WebPageBuilder::buildPage() const
 {
     QString logmsg = "Rotation at " + QString::number(rotation) + " degrees";
     logger(logmsg);
@@ -69,5 +69,5 @@ QString WebPageBuilder::buildPage() const
     QString msg = baseStart + bgColor + baseMid1.arg(derp.at(0), derp.at(1)) + QString::number(rotation) + baseMid2 + src + baseEnd;
     logmsg = QUrl::toPercentEncoding(msg);
     logger(logmsg);
-    return msg;
+    return msg.toUtf8(); // to be fixed
 }

@@ -13,6 +13,7 @@ ViewerWindow::ViewerWindow(QWidget *parent) :
     //show();
     setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
     win = new MainWindow(0, this);
+    //ui->webView->load("");//(QUrl("http://www.google.com"));
 }
 
 ViewerWindow::~ViewerWindow()
@@ -29,7 +30,12 @@ void ViewerWindow::SwitchURL(const QString url)
 void ViewerWindow::renderPage(const QString &pageData)
 {
     win->LogMessage("re-rendering page");
-    ui->webView->setHtml(pageData);
+    //ui->webView->setHtml(pageData);
+    if (page) { page->deleteLater(); }
+    page = new QWebEnginePage(this);
+    page->setHtml(pageData);
+    ui->webView->setPage(page);
+    //ui->webView->setHtml();
 }
 
 void ViewerWindow::closeEvent(QCloseEvent *)

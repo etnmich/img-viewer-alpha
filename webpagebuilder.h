@@ -16,7 +16,7 @@ signals:
 
 public slots:
 
-    QString buildPage() const;
+    QByteArray buildPage() const;
     void resetRotation();
     void rotateClockwise();
     void rotateCounterCw();

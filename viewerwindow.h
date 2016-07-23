@@ -2,7 +2,8 @@
 #define WIN1_H
 
 #include <QMainWindow>
-#include <QtWebKit>
+//#include <QtWebKit>
+#include <QtWebEngineWidgets>
 
 class MainWindow;
 
@@ -33,6 +34,7 @@ protected:
 private:
     Ui::ViewerWindow *ui;
     MainWindow *win;
+    QWebEnginePage *page;
 };
 
 #endif // WIN1_H

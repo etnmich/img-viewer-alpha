@@ -78,7 +78,7 @@ void MainWindow::show()
     // short redef, shit breaks up if updated before show
     QWidget::show();
     setSizes();
-    updateImage();
+
 
     connect(ui->updateButton, SIGNAL(clicked(bool)), this, SLOT(updateImage()));
     connect(ui->wpHeight, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
@@ -93,6 +93,8 @@ void MainWindow::show()
     connect(server, SIGNAL(ServerOnline(bool)), this, SLOT(changeWebSocketButton(bool)));
     connect(server, SIGNAL(serverMsg(QString)), this, SLOT(showStatus(QString)));
     connect(server, SIGNAL(ImageUrlReceived(QString)), this, SLOT(changeImage(QString)));
+
+    updateImage();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
