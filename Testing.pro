@@ -15,21 +15,23 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    websocketserver.cpp \
-    webpagebuilder.cpp \
-    viewerwindow.cpp \
-    config.cpp
+        websocketserver.cpp \
+        webpagebuilder.cpp \
+        viewerwindow.cpp \
+        config.cpp \
+        testview.cpp
 
 HEADERS  += mainwindow.h \
-    websocketserver.h \
-    webpagebuilder.h \
-    viewerwindow.h \
-    config.h
+         websocketserver.h \
+         webpagebuilder.h \
+         viewerwindow.h \
+         config.h \
+         testview.h
 
 FORMS    += mainwindow.ui \
-    viewerwindow.ui
+         viewerwindow.ui
 
 DISTFILES += \
-    websocket-userscript-test.user.js
+          websocket-userscript-test.user.js
 
 CONFIG += c++11

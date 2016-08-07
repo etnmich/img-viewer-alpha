@@ -24,9 +24,11 @@ bool WebsocketServer::start(const quint16 &port)
         errMsg = "";
         emit serverMsg(QString("Server started succesfully on port %1").arg(port));
         emit ServerOnline(true);
+        return true;
     } else {
         errMsg = server->errorString();
         emit serverMsg(QString("Server error: %1").arg(errMsg));
+        return false;
     }
 }
 

@@ -6,7 +6,7 @@ const int DEBUG_PRIORITY = 0;
 
 
 
-MainWindow::MainWindow(QWidget *parent, ViewerWindow *view) :
+MainWindow::MainWindow(QWidget *parent, testview *view) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -51,7 +51,7 @@ void MainWindow::LogMessage(const QString &msg, const int &priority)
     QString timestampStr, logMsg;
     timestampStr = QDateTime::currentDateTime().toString("[hh:mm:ss] ");
     logMsg = timestampStr + msg;
-    ui->LogBrowser->append(logMsg);
+    qDebug() << logMsg;
     //QString prevText = ui->textEdit->text
 }
 
@@ -64,13 +64,17 @@ void MainWindow::closeEvent(QCloseEvent *)
 void MainWindow::updateImage(bool resetRotation)
 {
     LogMessage("Updated image");
+    /*
     wpb->setSource(QUrl(ui->URLline->text()));
-    wpb->setBgColor(ui->bgColor->value());
+    wpb->setBgColor(ui->bgColor->value());*/
+    viewer->setBackgroundColor(ui->bgColor->value());
     if (resetRotation)
     {
-        wpb->resetRotation();
+        viewer->resetRotation();
     }
-    viewer->renderPage(wpb->buildPage());
+    viewer->changeUrl(ui->URLline->text());
+    wpSizeChanged();
+    //viewer->renderPage(wpb->buildPage());
 }
 
 void MainWindow::show()
@@ -81,12 +85,12 @@ void MainWindow::show()
 
 
     connect(ui->updateButton, SIGNAL(clicked(bool)), this, SLOT(updateImage()));
-    connect(ui->wpHeight, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
-    connect(ui->wpWidth, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
+    //connect(ui->wpHeight, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
+    //connect(ui->wpWidth, SIGNAL(valueChanged(int)), this, SLOT(wpSizeChanged()));
     connect(ui->saveButton, SIGNAL(clicked(bool)), this, SLOT(saveSettings()));
 
-    connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogLabel, SLOT(setVisible(bool)));
-    connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogBrowser, SLOT(setVisible(bool)));
+    //connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogLabel, SLOT(setVisible(bool)));
+    //connect(ui->actionShow_Log, SIGNAL(toggled(bool)), ui->LogBrowser, SLOT(setVisible(bool)));
     ui->actionShow_Log->toggle();
     resize(400, 100);
 
@@ -104,7 +108,8 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 
 void MainWindow::dropEvent(QDropEvent * event)
 {
-
+    viewer->dropEventBridge(event);
+/*
     const QMimeData* mimeData = event->mimeData();
 
     LogMessage(mimeData->text());
@@ -121,7 +126,7 @@ void MainWindow::dropEvent(QDropEvent * event)
       QString firstUrl = urlList.first().toString();
 
       changeImage(firstUrl);
-    }
+    }*/
 }
 
 void MainWindow::changeImage(const QString &url) {
@@ -131,13 +136,15 @@ void MainWindow::changeImage(const QString &url) {
 
 void MainWindow::on_turnLeftButton_clicked()
 {
-    wpb->rotateCounterCw();
+    //wpb->rotateCounterCw();
+    viewer->rotateLeft();
     updateImage(false);
 }
 
 void MainWindow::on_turnRightButton_clicked()
 {
-    wpb->rotateClockwise();
+    //wpb->rotateClockwise();
+    viewer->rotateRight();
     updateImage(false);
 }
 
@@ -165,6 +172,7 @@ void MainWindow::loadSettings()
     try {
         ui->wpWidth->setValue(conf->getKey("wpWidth").toInt());
     } catch (...) {}
+    wpSizeChanged();
 }
 
 void MainWindow::saveSettings()
@@ -196,8 +204,8 @@ void MainWindow::showStatus(const QString &msg)
 {
     ui->statusBar->showMessage(msg);
 }
-
+/*
 void MainWindow::dropEventBridge(QDropEvent *event)
 {
     dropEvent(event);
-}
+}*/

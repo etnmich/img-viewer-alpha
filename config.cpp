@@ -10,7 +10,8 @@ Config::Config(const QString &filename, QObject *parent) : QObject(parent)
     if (doc.isObject()) {
         data = doc.object().toVariantMap();
     } else {
-        throw Error::ParseError;
+        // do stuff
+        //throw Error::ParseError;
     }
 }
 

@@ -10,6 +10,7 @@
 #include "webpagebuilder.h"
 #include "config.h"
 #include "websocketserver.h"
+#include "testview.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0, ViewerWindow *view = 0);
+    explicit MainWindow(QWidget *parent = 0, testview *view = 0);
     ~MainWindow();
 
     void initStuff();
@@ -35,7 +36,7 @@ public slots:
     void changeWebSocketButton(const bool &isOnline);
     void showStatus(const QString &msg);
     void changeImage(const QString &url);
-    void dropEventBridge(QDropEvent *event);
+    //void dropEventBridge(QDropEvent *event);
 protected:
     virtual void closeEvent(QCloseEvent *);
     void dropEvent(QDropEvent *event);
@@ -55,7 +56,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    ViewerWindow *viewer;
+    //ViewerWindow *viewer;
+    testview *viewer;
     WebPageBuilder *wpb;
     Config *conf;
     WebsocketServer *server;

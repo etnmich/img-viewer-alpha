@@ -4,7 +4,8 @@
 
 ViewerWindow::ViewerWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::ViewerWindow)
+    ui(new Ui::ViewerWindow),
+    page(nullptr)
 {
     ui->setupUi(this);
 
@@ -12,7 +13,7 @@ ViewerWindow::ViewerWindow(QWidget *parent) :
     //setWindowFlags(Qt::WindowStaysOnBottomHint);
     //show();
     setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
-    win = new MainWindow(0, this);
+    //win = new MainWindow(0, this);
     //ui->webView->load("");//(QUrl("http://www.google.com"));
 }
 
@@ -62,5 +63,5 @@ void ViewerWindow::dragEnterEvent(QDragEnterEvent *event)
 void ViewerWindow::dropEvent(QDropEvent *event)
 {
     qDebug() << event;
-    win->dropEventBridge(event);
+    //win->dropEventBridge(event);
 }
