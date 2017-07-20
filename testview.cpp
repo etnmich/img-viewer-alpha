@@ -145,13 +145,16 @@ void testview::dropEvent(QDropEvent *event)
 {
    const QMimeData *mimez = event->mimeData();
    if (mimez->hasImage()) {
-       qDebug() << "it haz the imgs";
+       qDebug() << "it haz the imgs, size is" << mimez->imageData().toSize();
        // possibly do something
    }
    if (mimez->hasUrls()) {
        qDebug() << "it haz the urls";
        if (mimez->urls().length() > 1)
            qDebug() << "so many urls," << mimez->urls();
+       else {
+           qDebug() << "it iz" << mimez->urls()[0];
+       }
        manager->get(QNetworkRequest(mimez->urls()[0]));
        resetRotation();
    }
@@ -244,28 +247,29 @@ void testview::handleResponse(QNetworkReply *rep)
         return;
     }
 
+    qDebug() << "Headers:";
+    foreach (auto header, rep->rawHeaderList()) {
+        qDebug() << header << "-" << rep->rawHeader(header);
+    }
+
     QString mimeType = qvariant_cast<QString>(rep->header(QNetworkRequest::ContentTypeHeader));
     if (mimeType.split('/')[0] != "image")
         qDebug() << "not image but a" << mimeType;
-    if (rep->open(QIODevice::ReadOnly)) {
-        // TODO: error handling
-        //QImageReader img(rep);
-        if (mimeType.split('/')[1] == "gif") {
-            qDebug() << "it's a gif";
-            auto mov = new QMovie(this);
-            mov->setCacheMode(QMovie::CacheAll);
-            mov->setDevice(rep);
-            mov->jumpToFrame(0);
-            movieSize = mov->currentImage().size();
-            changeMovie(mov);
-        } else {
-            qDebug() << "just a pic";
-            changeImage(new QImage(QImageReader(rep).read()));
-        }
-        resizeImage();
+
+    // TODO: error handling
+    if (mimeType.split('/')[1] == "gif" || rep->url().toString().right(3) == "gif") {
+        qDebug() << "it's a gif";
+        auto mov = new QMovie(this);
+        mov->setCacheMode(QMovie::CacheAll);
+        mov->setDevice(rep);
+        mov->jumpToFrame(0);
+        movieSize = mov->currentImage().size();
+        changeMovie(mov);
     } else {
-        qDebug() << rep->error();
+        qDebug() << "just a pic";
+        changeImage(new QImage(QImageReader(rep).read()));
     }
+    resizeImage();
 }
 
 void testview::removeImage()

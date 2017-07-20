@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>304</height>
+    <height>332</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -375,7 +375,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMain">
@@ -405,6 +405,18 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>bgColor</tabstop>
+  <tabstop>URLline</tabstop>
+  <tabstop>wpWidth</tabstop>
+  <tabstop>wpHeight</tabstop>
+  <tabstop>turnLeftButton</tabstop>
+  <tabstop>turnRightButton</tabstop>
+  <tabstop>wsPort</tabstop>
+  <tabstop>wsServerButton</tabstop>
+  <tabstop>updateButton</tabstop>
+  <tabstop>saveButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
