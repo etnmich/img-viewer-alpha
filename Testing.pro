@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 #QT       += core gui webkitwidgets webkit websockets
-QT       += core gui webenginewidgets websockets
+QT       += core gui websockets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,20 +16,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
         websocketserver.cpp \
-        webpagebuilder.cpp \
-        viewerwindow.cpp \
         config.cpp \
         testview.cpp
 
 HEADERS  += mainwindow.h \
          websocketserver.h \
-         webpagebuilder.h \
-         viewerwindow.h \
          config.h \
          testview.h
 
-FORMS    += mainwindow.ui \
-         viewerwindow.ui
+FORMS    += mainwindow.ui
 
 DISTFILES += \
     vinebooru-sender.user.js

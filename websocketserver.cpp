@@ -67,16 +67,26 @@ void WebsocketServer::processTextMessage(const QString &message)
     //don't need this yet
     //QWebSocket *client = qobject_cast<QWebSocket*>(sender());
     QJsonObject obj = QJsonDocument::fromJson(message.toUtf8()).object();
-    if (!obj.contains("type") || !obj.contains("url")) {
+    if (!obj.contains("type") || !obj.contains("payload")) {
         // logging for dbg
         qDebug() << obj;
         return;
         // this is not the json we're looking for
     }
     QString type = obj.value("type").toString();
-    QString url = obj.value("url").toString();
     if (type == "img") {
+        QString url = obj.value("payload").toString();
         emit ImageUrlReceived(url);
+    }
+    if (type == "rotate") {
+        QString direction = obj.value("payload").toString();
+        if (direction == "right") {
+            emit RotateRightReceived();
+        } else if (direction == "left") {
+            emit RotateLeftReceived();
+        } else {
+            qDebug() << "received unknown rotation \"" << direction << '"';
+        }
     }
     // TODO: add more handlers
     // elseif (...) {...}

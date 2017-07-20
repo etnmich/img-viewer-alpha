@@ -22,6 +22,8 @@ signals:
     void ServerOnline(const bool&);
     void ImageUrlReceived(const QString&);
     void serverMsg(const QString&);
+    void RotateLeftReceived();
+    void RotateRightReceived();
 
 public slots:
 

@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "viewerwindow.h"
+//#include "viewerwindow.h"
 #include "testview.h"
 #include <QApplication>
 

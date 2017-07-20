@@ -165,7 +165,7 @@ void testview::dragEnterEvent(QDragEnterEvent *event)
     event->acceptProposedAction();
 }
 
-void testview::closeEvent(QCloseEvent *event)
+void testview::closeEvent(QCloseEvent *)
 {
     configWindow->close();
 }
@@ -198,8 +198,8 @@ void testview::resizeImage()
     if (currentImage) {
         QTransform trans;
         trans.rotate(rotationAngle);
-        QImage img = currentImage->scaled(scrol->size(), Qt::KeepAspectRatio);
-        img = img.transformed(trans);
+        QImage img = currentImage->transformed(trans).scaled(scrol->size(), Qt::KeepAspectRatio);
+        //img = img.transformed(trans);
         lab->resize(img.size());
         lab->setPixmap(QPixmap::fromImage(img));
     } else if (currentMovie)

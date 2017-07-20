@@ -6,8 +6,8 @@
 #include <QUrl>
 #include <QVector>
 
-#include "viewerwindow.h"
-#include "webpagebuilder.h"
+//#include "viewerwindow.h"
+//#include "webpagebuilder.h"
 #include "config.h"
 #include "websocketserver.h"
 #include "testview.h"
@@ -58,7 +58,7 @@ private:
     Ui::MainWindow *ui;
     //ViewerWindow *viewer;
     testview *viewer;
-    WebPageBuilder *wpb;
+    //zWebPageBuilder *wpb;
     Config *conf;
     WebsocketServer *server;
 

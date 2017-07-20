@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QDragEnterEvent>
+
 // TODO: switch this to be an option
 const int DEBUG_PRIORITY = 0;
 
@@ -13,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent, testview *view) :
     ui->setupUi(this);
     viewer = view;
 
-    wpb = new WebPageBuilder(this);
+    //wpb = new WebPageBuilder(this);
     setAcceptDrops(true);
 
     conf = new Config("settings.conf", this);
@@ -97,6 +99,8 @@ void MainWindow::show()
     connect(server, SIGNAL(ServerOnline(bool)), this, SLOT(changeWebSocketButton(bool)));
     connect(server, SIGNAL(serverMsg(QString)), this, SLOT(showStatus(QString)));
     connect(server, SIGNAL(ImageUrlReceived(QString)), this, SLOT(changeImage(QString)));
+    connect(server, SIGNAL(RotateLeftReceived()), this, SLOT(on_turnLeftButton_clicked()));
+    connect(server, SIGNAL(RotateRightReceived()), this, SLOT(on_turnRightButton_clicked()));
 
     updateImage();
 }
