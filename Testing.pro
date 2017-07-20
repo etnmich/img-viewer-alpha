@@ -32,6 +32,6 @@ FORMS    += mainwindow.ui \
          viewerwindow.ui
 
 DISTFILES += \
-    vinebooru-sender.js
+    vinebooru-sender.user.js
 
 CONFIG += c++11
