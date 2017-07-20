@@ -32,6 +32,6 @@ FORMS    += mainwindow.ui \
          viewerwindow.ui
 
 DISTFILES += \
-          websocket-userscript-test.user.js
+    vinebooru-sender.js
 
 CONFIG += c++11
