@@ -251,11 +251,12 @@ void testview::handleResponse(QNetworkReply *rep)
     foreach (auto header, rep->rawHeaderList()) {
         qDebug() << header << "-" << rep->rawHeader(header);
     }
-
-    QString mimeType = qvariant_cast<QString>(rep->header(QNetworkRequest::ContentTypeHeader));
-    if (mimeType.split('/')[0] != "image")
-        qDebug() << "not image but a" << mimeType;
-
+    QString mimeType = "null/null";
+    if (!rep->url().isLocalFile()) {
+        QString mimeType = qvariant_cast<QString>(rep->header(QNetworkRequest::ContentTypeHeader));
+        if (mimeType.split('/')[0] != "image")
+            qDebug() << "not image but a" << mimeType;
+    }
     // TODO: error handling
     if (mimeType.split('/')[1] == "gif" || rep->url().toString().right(3) == "gif") {
         qDebug() << "it's a gif";
